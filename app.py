@@ -22,7 +22,7 @@ load_dotenv()
 QUESTIONS_FILE = Path("Junior_Yonalishlar_Savollar_30tadan.xlsx")
 RESULTS_FILE = Path("candidate_results.xlsx")
 ADMIN_PASSWORD = os.getenv("TEST_APP_ADMIN_PASSWORD", "admin123")
-DEFAULT_MODEL = "gpt-5.2"
+DEFAULT_MODEL = "gpt-5-mini"
 SETTINGS_SHEET = "Yo'nalish sozlamalari"
 DEFAULT_PASS_PERCENT = 60.0
 
