@@ -656,8 +656,8 @@ def choose_questions(all_questions: list[dict[str, Any]], limit: int) -> list[di
 
 
 def render_registration(directions: dict[str, list[dict[str, Any]]]) -> None:
-    st.title("Kandidat test tizimi")
-    st.caption("Ro'yxatdan o'ting, yo'nalishni tanlang va testni boshlang.")
+    st.title("Ishonch IT Department Test Platformasi")
+    st.caption("Ishonch IT Department uchun kandidat baholash tizimi.")
 
     if not directions:
         st.warning("Savollar topilmadi. Admin panel orqali Excel workbook yuklang yoki savol qo'shing.")
@@ -911,7 +911,7 @@ def render_result() -> None:
 
 
 def main() -> None:
-    st.set_page_config(page_title="Kandidat test tizimi", page_icon="Test", layout="wide")
+    st.set_page_config(page_title="Ishonch IT Department Test Platformasi", page_icon="Test", layout="wide")
     initialize_state()
     ensure_workbook_exists()
     directions = load_question_bank(str(QUESTIONS_FILE))
