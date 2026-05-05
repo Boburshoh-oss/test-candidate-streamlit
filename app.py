@@ -507,6 +507,12 @@ def save_uploaded_workbook(uploaded_file: Any) -> None:
     clear_question_cache()
 
 
+def read_results_file() -> bytes | None:
+    if not RESULTS_FILE.exists():
+        return None
+    return RESULTS_FILE.read_bytes()
+
+
 def initialize_state() -> None:
     defaults = {
         "stage": "registration",
@@ -569,6 +575,20 @@ def render_admin_panel(directions: dict[str, list[dict[str, Any]]]) -> None:
         key="question_limit",
     )
     st.sidebar.text_input("OpenAI model", key="openai_model")
+
+    st.sidebar.divider()
+    st.sidebar.subheader("Natijalar")
+    results_bytes = read_results_file()
+    if results_bytes:
+        st.sidebar.caption(f"Fayl: {RESULTS_FILE.name} ({len(results_bytes) / 1024:.1f} KB)")
+        st.sidebar.download_button(
+            "Natijalarni yuklab olish",
+            data=results_bytes,
+            file_name=RESULTS_FILE.name,
+            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        )
+    else:
+        st.sidebar.caption("Hali natija fayli yaratilmagan.")
 
     st.sidebar.divider()
     uploaded_file = st.sidebar.file_uploader("Yangi Excel workbook yuklash", type=["xlsx"])
