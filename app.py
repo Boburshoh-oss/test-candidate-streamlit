@@ -23,7 +23,7 @@ QUESTIONS_FILE = Path("Junior_Yonalishlar_Savollar_30tadan.xlsx")
 RESULTS_FILE = Path("candidate_results.xlsx")
 ADMIN_PASSWORD = os.getenv("TEST_APP_ADMIN_PASSWORD", "admin123")
 DEFAULT_MODEL = "gpt-5-mini"
-SETTINGS_SHEET = "Yo'nalish sozlamalari"
+SETTINGS_SHEET = "Yonalish sozlamalari"
 DEFAULT_PASS_PERCENT = 60.0
 
 STANDARD_HEADERS = [
@@ -270,7 +270,13 @@ def load_direction_settings(path_text: str) -> dict[str, dict[str, float]]:
 
 def get_direction_pass_percent(direction: str) -> float:
     settings = load_direction_settings(str(QUESTIONS_FILE))
-    return settings.get(direction, {}).get("pass_percent", DEFAULT_PASS_PERCENT)
+    if direction in settings:
+        return settings[direction].get("pass_percent", DEFAULT_PASS_PERCENT)
+    normalized_dir = normalize_name(direction)
+    for key, value in settings.items():
+        if normalize_name(key) == normalized_dir:
+            return value.get("pass_percent", DEFAULT_PASS_PERCENT)
+    return DEFAULT_PASS_PERCENT
 
 
 def get_direction_total_score(direction: str) -> float:
