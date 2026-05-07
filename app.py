@@ -883,12 +883,9 @@ def render_result() -> None:
         st.rerun()
 
     st.title("Test natijasi")
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2 = st.columns(2)
     col1.metric("Ball", f"{result['Olingan ball']} / {result['Jami maksimal ball']}")
     col2.metric("Foiz", f"{result['Foiz']}%")
-    pass_percent_value = result.get("O'tish foizi", DEFAULT_PASS_PERCENT)
-    col3.metric("O'tish foizi", f"{pass_percent_value}%")
-    col4.metric("Holat", result.get("O'tish holati", ""))
 
     st.caption(f"Baho: {result['Baho']}")
 
